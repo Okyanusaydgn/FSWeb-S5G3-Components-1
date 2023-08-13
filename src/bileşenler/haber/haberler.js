@@ -4,6 +4,13 @@ import "./haberler.less";
 // ES6 Modülleri ile ilgili bilgi için bakabilirsiniz: https://exploringjs.com/es6/ch_modules.html#sec_basics-of-es6-modules
 const data = [
   {
+    baslik: "JavaScript in Space: SpaceX Devs Have Shared CrewDragon’s Tech Stack",
+    tarih: "12 temmuz 2023",
+    ilkParagraf: "The software engineering team of SpaceX company has entered the Reddit to answer the most relevant user questions and opening up about the technology stack of CrewDragon. Who would have thought that JavaScript will enter an open space literally? Learn more in our latest blog post.",
+    ikinciParagraf: "SpaceX’s historic CrewDragon has successfully launched into space on Saturday the 30th of May. The whole world had to hold their breath while watching the iconic moment of humanity coming into the new are of space flights.",
+    ucuncuParagraf: "The Crew Dragon launched astronauts from the United States for the first time since the last Shuttle flight in 2011. However, the shuttle itself completely differs from what we have ever had in the past.",
+  },
+  {
     baslik: 'Workintech Öğrencileri: "Bizler en iyi öğrencileriz!"',
     tarih: "11 Kasım 2022",
     ilkParagraf: `Lucas ipsum dolor sit amet ben twi'lek padmé darth darth darth moff hutt organa twi'lek. Ben amidala secura skywalker lando
@@ -90,6 +97,55 @@ const data = [
   },
 ];
 
+
+const haberYapici = (haber) => {
+  const divArticle = document.createElement("div");
+  divArticle.classList.add("article");
+
+  const baslik = document.createElement("h2");
+  baslik.textContent = haber.baslik;
+  divArticle.append(baslik);
+
+  const paragraf = document.createElement("p");
+  paragraf.classList.add("tarih");
+  paragraf.textContent = haber.tarih;
+  divArticle.append(paragraf);
+
+
+  const paragraf1 = document.createElement("p");
+  paragraf1.textContent = haber.ilkParagraf;
+  divArticle.append(paragraf1);
+
+  const paragraf2 = document.createElement("p");
+  paragraf2.textContent = haber.ikinciParagraf;
+  divArticle.append(paragraf2);
+
+  const paragraf3 = document.createElement("p");
+  paragraf3.textContent = haber.ucuncuParagraf;
+  divArticle.append(paragraf3);
+
+  const span = document.createElement("button");
+  span.classList.add("expandButton");
+  span.textContent = "+"; 
+  span.addEventListener("click", (e) =>{  // buradaki e "event" anlamına geliyor.
+    e.target.parentElement.classList.toggle("article-open"); // parentElement dememizin anlamı "div class ='article'" yapısına article-open class ını ekleyip çıkarmak için "parentElement" kullanıyoruz.
+  })
+  divArticle.append(span);
+
+  return divArticle; 
+}
+
+data.forEach((haber) => {
+  document.querySelector(".articles").append(haberYapici(haber)) 
+})
+
+// data içerisindeki haberlerden sırayla alacak  -- data.forEach(haber)
+// her birini kullanarak component i oluşturacak  -- haberYapici(haber)
+// bunu gidip articles ın içine append edecek ---- document.querySelector(".articles")
+
+
+
+
 /*
   Adım 1: Haber oluşturmak için 'haberYapici' adında bir bileşen(component) oluşturun.
   Bileşeniniz, argümanı haberleri içeren dizi olarak alan bir fonksiyon olacak,
@@ -107,7 +163,7 @@ const data = [
   Adım 2: Hala `haberYapici` içindeyiz, button.expandButton 'a bir click event dinleyici ekleyin.
   Bu dinleyici div.article öğesine 'article-open' class'ını ekleyip/çıkaracak (toogle).
 
-  Adım 3: Fonksiyonunuzdan bir öğe döndürmeyi unutmayın.
+  Adım 3: Fonksiyonunuzdan bir öğe döndürmeyi unutmayın.  -----> burada bahsettiği return komutunu kullanmayı unutma
 
   Adım 4: Fonksiyonunuzun dışında, tüm datayı döngüye sokun(loop). Bir div.article öğesi oluşturmak ve bunu div.articles içindeki DOM'a eklemek için
   her yinelemede oluşturduğunuz bileşeninizi kullanacaksınız(bknz. index.html).
